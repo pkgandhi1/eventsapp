@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"events-api"},"name":"events-api","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"events-api","ver":"v1.0"}},"template":{"metadata":{"labels":{"app":"events-api","ver":"v1.0"}},"spec":{"containers":[{"image":"pgondocker/events-api:v1.0","name":"events-api","ports":[{"containerPort":8082}]}]}}}}
+  creationTimestamp: "2026-02-18T15:55:31Z"
+  generation: 1
+  labels:
+    app: events-api
+  name: events-api
+  namespace: default
+  resourceVersion: "4625"
+  uid: 2a74be68-3d7a-4651-bcbe-02aacbd98e32
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: events-api
+      ver: v1.0
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: events-api
+        ver: v1.0
+    spec:
+      containers:
+      - image: pgondocker/events-api:v1.0
+        imagePullPolicy: IfNotPresent
+        name: events-api
+        ports:
+        - containerPort: 8082
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2026-02-18T15:55:31Z"
+    lastUpdateTime: "2026-02-18T15:55:46Z"
+    message: ReplicaSet "events-api-fcd7c75f9" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2026-02-18T16:00:29Z"
+    lastUpdateTime: "2026-02-18T16:00:29Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
